@@ -8,14 +8,14 @@ import adoptionsRouter from './routes/adoption.router.js';
 import sessionsRouter from './routes/sessions.router.js';
 import loggsRouter from './routes/loggsTest.router.js'
 import mocksRouter from './routes/mocks.router.js'
-import { middLog } from './utils/utils.js';
+import { logger, middLog } from './utils/utils.js';
 
 
 const app = express();
 const PORT = process.env.PORT||8080;
 const connection = mongoose.connect(`mongodb+srv://malenakiryluk:malena2014!@cluster0.tab2i.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`)
 if (connection) {
-    console.log("db ok");
+    logger.info("db ok")
 }
 
 
@@ -31,4 +31,4 @@ app.use(middLog);
 
 
 
-app.listen(PORT,()=>console.log(`Listening on ${PORT}`))
+app.listen(PORT,()=>logger.info(`Listening on ${PORT}`))
