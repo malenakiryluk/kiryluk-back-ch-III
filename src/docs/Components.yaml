@@ -1,0 +1,47 @@
+components:
+  schemas:
+    Pets:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id autogenerado de mongo
+        name:
+          type: string
+          description: Nombre de la mascota
+        specie:
+          type: string
+          description: Especie de la mascota   
+        birthDate:
+          type: string
+          description: Fecha de nacimiento de la mascota
+        adopted: 
+          type: boolean
+          description: estado de al mascota  
+      example:
+        _id: ObjectId("60acc54545c8e82e0475f73a")
+        name: coco
+        smecie: perro
+        birthDate: 2025-03-08T07:29:44.927Z
+        adopted: true
+  requestBodies:
+    createPet:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nombre de la mascota
+        specie:
+          type: string
+          description: especie de la mascota
+        birthDate:
+          type: date
+          description: fecha de nacimiento de la mascota
+        adopted:
+          type: boolean
+          description: Estado de adopcion de la mascota
+      example:
+        name: jaime
+        smecie: perro
+        birthDate: 2025-03-08T07:29:44.927Z
+        adopted: true    

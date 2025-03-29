@@ -1,4 +1,3 @@
-import { log } from "winston";
 import { usersService } from "../services/index.js"
 import { logger } from "../utils/utils.js";
 
