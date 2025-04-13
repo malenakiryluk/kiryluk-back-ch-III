@@ -3,6 +3,7 @@ import { createHash, passwordValidation } from "../utils/index.js";
 import jwt from 'jsonwebtoken';
 import UserDTO from '../dto/User.dto.js';
 import { logger } from "../utils/utils.js";
+import { now } from "mongoose";
 
 const register = async (req, res) => {
 
@@ -47,7 +48,9 @@ const login = async (req, res) => {
         if (!user) return res.status(404).send({ status: "error", error: "User doesn't exist" });
         const isValidPassword = await passwordValidation(user, password);
         if (!isValidPassword) return res.status(400).send({ status: "error", error: "Incorrect password" });
+        user.last_connection = Date.now()
         const userDto = UserDTO.getUserTokenFrom(user);
+        console.log(userDto)
         const token = jwt.sign(userDto, 'tokenSecretJWT', { expiresIn: "1h" });
         res.cookie('coderCookie', token, { maxAge: 3600000 }).send({ status: "success", message: "Logged in" })
     } catch (error) {

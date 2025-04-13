@@ -3,7 +3,19 @@ export default class UserDTO {
         return {
             name: `${user.first_name} ${user.last_name}`,
             role: user.role,
-            email:user.email
+            email:user.email,
+            last_connection:user.last_connection,
+            documents:user.documents
+        }
+    }
+
+    static getUserInputFrom = (user) =>{
+        return {
+            name: `${user.first_name} ${user.last_name}`,
+            role: user.role,
+            email:user.email,
+            last_connection:user.last_connection,
+            documents:user.documents
         }
     }
 }

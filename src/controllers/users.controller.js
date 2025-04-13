@@ -1,3 +1,4 @@
+import UserDTO from "../dto/User.dto.js";
 import { usersService } from "../services/index.js"
 import { logger } from "../utils/utils.js";
 
@@ -86,9 +87,43 @@ const deleteUser = async(req,res) =>{
     
 }
 
+const uploadDocument = async(req,res)=>{
+    const file = req.file;
+    const userId = req.params.uid;
+
+    if (!userId) {
+        logger.info("datos no validos")
+        return res.status(400).send({status:"error",error:"Incomplete values"})
+    }
+
+    try {
+        const user = await usersService.getUserById(userId);
+        const userDto = UserDTO.getUserInputFrom({
+            ...user,
+            image: `${__dirname}/../public/documents/${file.filename}`
+        });
+        logger.info(userDto)
+        const result = await usersService.update(userId, userDto);
+        res.send({ status: "success", message: "Document updated" })
+        
+    } catch (error) {
+        logger.error(error);
+        res.setHeader('Content-Type','application/json');
+        return res.status(500).json(
+            {
+                error:`Error inesperado en el servidor - Intente más tarde, o contacte a su administrador`,
+                detalle:`${error.message}`
+            }
+        )
+        
+    }
+    
+}
+
 export default {
     deleteUser,
     getAllUsers,
     getUser,
-    updateUser
+    updateUser,
+    uploadDocument
 }
