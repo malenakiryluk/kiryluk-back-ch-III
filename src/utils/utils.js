@@ -4,10 +4,10 @@ import winston, { createLogger } from "winston"
 import { config } from '../../src/config/config.js';
 import { fakerES_MX as faker} from "@faker-js/faker"
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+//const __filename = fileURLToPath(import.meta.url);
+//const __dirname = dirname(__filename);
 
-
+//export default __dirname
 
 const nivelesPersonalizados = {
     levels: { fatal: 0, error: 1, warning: 2, info: 3, http: 4, debug: 5}
@@ -95,4 +95,4 @@ export const generateUsers = () => {
     return fakeUser;
 }
 
-export default __dirname
+

@@ -10,11 +10,13 @@ import mocksRouter from './routes/mocks.router.js'
 import { logger, middLog } from './utils/utils.js';
 import swaggerJsdoc from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
+import { config } from './config/config.js';
+
 
 
 const app = express();
 const PORT = process.env.PORT||8080;
-const connection = mongoose.connect(`mongodb+srv://malenakiryluk:malena2014!@cluster0.tab2i.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`)
+const connection = mongoose.connect(config.MONGO_URL)
 if (connection) {
     logger.info("db ok")
 }

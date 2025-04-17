@@ -1,5 +1,6 @@
 import UserDTO from "../dto/User.dto.js";
 import { usersService } from "../services/index.js"
+import __dirname from "../utils/index.js";
 import { logger } from "../utils/utils.js";
 
 const getAllUsers = async(req,res)=>{
@@ -88,9 +89,9 @@ const deleteUser = async(req,res) =>{
 }
 
 const uploadDocument = async(req,res)=>{
-    const file = req.file;
+    const file = req.file
     const userId = req.params.uid;
-
+    logger.info(file)
     if (!userId) {
         logger.info("datos no validos")
         return res.status(400).send({status:"error",error:"Incomplete values"})
@@ -98,9 +99,10 @@ const uploadDocument = async(req,res)=>{
 
     try {
         const user = await usersService.getUserById(userId);
+        
         const userDto = UserDTO.getUserInputFrom({
-            ...user,
-            image: `${__dirname}/../public/documents/${file.filename}`
+            user,
+            documents: `${__dirname}/../public/documents/${file.filename}`
         });
         logger.info(userDto)
         const result = await usersService.update(userId, userDto);
